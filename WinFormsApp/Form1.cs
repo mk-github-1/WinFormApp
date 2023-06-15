@@ -25,7 +25,7 @@ namespace WinFormsApp
 
             this.connectionString = this._configuration["ConnectionStrings:DefaultConnection"]
             
-            // Formの初期化
+            // Formの初期化(移動しない)
             InitializeComponent();
         }
 
