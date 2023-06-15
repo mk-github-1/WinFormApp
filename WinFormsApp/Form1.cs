@@ -17,6 +17,8 @@ namespace WinFormsApp
         public Form1()
         {
             // 例題なのでベタ書きですが、ここはRepositoryに分けれると思います。
+            // public IList<UserModel> FindAll() { return リスト; } みたいたイメージです。
+            
             // appsettings.jsonのデータベース接続接続文字列を取得
             var builder = new ConfigurationBuilder()
                 .SetBasePath(System.IO.Directory.GetCurrentDirectory())
