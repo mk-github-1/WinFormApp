@@ -53,7 +53,7 @@ namespace WinFormsApp
                     // データをループ
                     while (sqlDataReader.Read())
                     {
-                        // C#では空のコンストラクタで値が設定できる(Javaではできなかったはず)
+                        // C#では空のコンストラクタの後、{}で値が設定できる(Javaではできない)
                         UserModel userModel = new UserModel()
                         {
                             Id = sqlDataReader.IsDBNull(0) ? 0 : sqlDataReader.GetInt32(0),
