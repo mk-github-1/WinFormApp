@@ -80,7 +80,7 @@ namespace WinFormsApp
             // ここでuserModelsをDataGridViewに追加する処理を書く
             
             
-            // Listを使うとLINQで並び変えとか簡単にできる。
+            // List<>のような、コレクションを使うとLINQで並び変えとか簡単にできる。
             // SQLでしていたことはほとんどできる(DBからデータ取得後にjoinとか、group byとかも)
             // この例はLINQのメソッド構文です。クエリ構文の使用は避けてください。(ネット記事にはクエリ構文の例も多いです)
             // IList<UserModel> userModels2 = userModels.OrderBy(e => e.Age);
