@@ -16,7 +16,7 @@ Webで編集したからコンパイルエラーしてたらすみません。
 Dao → Repository  
 Form → ViewModel  
 ※DB操作はRepositoryが一般的。  
-Formより、フロント(画面表示用のModel) = ViewModelのほうがいいかな。
+Formより、フロントモデル(画面表示用のModel)ということで、ViewModelのほうがいいかな。
 
 
 
