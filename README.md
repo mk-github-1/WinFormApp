@@ -15,8 +15,7 @@
 Dao → Repository  
 Form → ViewModel  
 ※DB操作はRepositoryが一般的。  
-デスクトップアプリにはFormという考えはないし、WebでもFormで送信するかはわからない。
-フロント(画面表示用のModel) =  ViewModel
+Formより、フロント(画面表示用のModel) = ViewModelのほうがいいかな。
 
 
 
