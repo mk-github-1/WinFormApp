@@ -71,8 +71,7 @@ namespace WinFormsApp
 
                 // usingが終わるとsqlConnectionがDispose(破棄)されるのでclose不要と思われる
             }
-            catch
-            (Exception ex)
+            catch (Exception ex)
             {
                 // 適当な例外を取得してます。UpdateConcurrencyExceptionとかあります。
                 Console.WriteLine(ex.ToString());
