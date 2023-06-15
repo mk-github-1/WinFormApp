@@ -10,13 +10,13 @@ namespace WinFormsApp
 {
     public partial class Form1 : Form
     {
-        // 例題なのでベタ書きですが、ここはRepositoryとかDaoに分けれると思います。
+        // 例題なのでベタ書きですが、ここはRepositoryに分けれると思います。
         private readonly IConfiguration _configuration;
         private readonly string connectionString;
 
         public Form1()
         {
-            // 例題なのでベタ書きですが、ここはRepositoryとかDaoに分けれると思います。
+            // 例題なのでベタ書きですが、ここはRepositoryに分けれると思います。
             // appsettings.jsonのデータベース接続接続文字列を取得
             var builder = new ConfigurationBuilder()
                 .SetBasePath(System.IO.Directory.GetCurrentDirectory())
@@ -37,7 +37,7 @@ namespace WinFormsApp
             // 例外処理はDB操作、フォルダ、ファイル操作など、外部リソースを使用するときに使っているイメージです。
             try
             {
-                // 例題なのでベタ書きですが、tryの中はRepositoryとかDaoに分けれると思います。
+                // 例題なのでベタ書きですが、tryの中はRepositoryに分けれると思います。
             
                 // データベース接続(usingを使うと抜けるときにdisposeメソッドを持っていれば、dispose(破棄)をしてくれます。)
                 using (SqlConnection sqlConnection = new SqlConnection(connectionString))
