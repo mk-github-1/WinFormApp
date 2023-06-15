@@ -1,6 +1,6 @@
 using System.Data.SqlClient;
 
-// ‚±‚ÌƒpƒbƒP[ƒW‚ª•K—v
+// ã“ã®ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ãŒå¿…è¦
 // Microsoft.Extensions.Configuration
 // Microsoft.Extensions.Configuration.Json
 using Microsoft.Extensions.Configuration;
@@ -10,48 +10,50 @@ namespace WinFormsApp
 {
     public partial class Form1 : Form
     {
-        // —á‘è‚È‚Ì‚Åƒxƒ^‘‚«‚Å‚·‚ªA‚±‚±‚ÍRepository‚Æ‚©Dao‚É•ª‚¯‚ê‚é‚Æv‚¢‚Ü‚·B
+        // ä¾‹é¡Œãªã®ã§ãƒ™ã‚¿æ›¸ãã§ã™ãŒã€ã“ã“ã¯Repositoryã¨ã‹Daoã«åˆ†ã‘ã‚Œã‚‹ã¨æ€ã„ã¾ã™ã€‚
         private readonly IConfiguration _configuration;
         private readonly string connectionString;
 
         public Form1()
         {
-            // —á‘è‚È‚Ì‚Åƒxƒ^‘‚«‚Å‚·‚ªA‚±‚±‚ÍRepository‚Æ‚©Dao‚É•ª‚¯‚ê‚é‚Æv‚¢‚Ü‚·B
-
-            // appsettings.json‚Ìƒf[ƒ^ƒx[ƒXÚ‘±Ú‘±•¶š—ñ‚ğæ“¾
+            // ä¾‹é¡Œãªã®ã§ãƒ™ã‚¿æ›¸ãã§ã™ãŒã€ã“ã“ã¯Repositoryã¨ã‹Daoã«åˆ†ã‘ã‚Œã‚‹ã¨æ€ã„ã¾ã™ã€‚
+            // appsettings.jsonã®ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹æ¥ç¶šæ¥ç¶šæ–‡å­—åˆ—ã‚’å–å¾—
             var builder = new ConfigurationBuilder()
                 .SetBasePath(System.IO.Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             this._configuration = builder.Build();
 
-            this.connectionString = this._configuration["ConnectionStrings:DefaultConnection"];
-
+            this.connectionString = this._configuration["ConnectionStrings:DefaultConnection"]
+            
+            // Formã®åˆæœŸåŒ–
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {   
+            // ãƒ‡ãƒ¼ã‚¿æ•°ãŒå°‘ãªã„ã®ã§ä¸€æ—¦Listã«è©°ã‚ã‚‹å½¢ã«ã—ã¦ã¾ã™ã€‚
             IList<UserModel> userModels = new List<UserModel>();
 
-            // ƒf[ƒ^”‚ª­‚È‚¢‚Ì‚Åˆê’UList‚É‹l‚ß‚éŒ`‚É‚µ‚Ä‚Ü‚·B
-            // —á‘è‚È‚Ì‚Åƒxƒ^‘‚«‚Å‚·‚ªAtry‚Ì’†‚ÍRepository‚Æ‚©Dao‚É•ª‚¯‚ê‚é‚Æv‚¢‚Ü‚·B
+            // ä¾‹å¤–å‡¦ç†ã¯DBæ“ä½œã€ãƒ•ã‚©ãƒ«ãƒ€ã€ãƒ•ã‚¡ã‚¤ãƒ«æ“ä½œãªã©ã€å¤–éƒ¨ãƒªã‚½ãƒ¼ã‚¹ã‚’ä½¿ç”¨ã™ã‚‹ã¨ãã«ä½¿ã£ã¦ã„ã‚‹ã‚¤ãƒ¡ãƒ¼ã‚¸ã§ã™ã€‚
             try
             {
-                // ƒf[ƒ^ƒx[ƒXÚ‘±
+                // ä¾‹é¡Œãªã®ã§ãƒ™ã‚¿æ›¸ãã§ã™ãŒã€tryã®ä¸­ã¯Repositoryã¨ã‹Daoã«åˆ†ã‘ã‚Œã‚‹ã¨æ€ã„ã¾ã™ã€‚
+            
+                // ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹æ¥ç¶š(usingã‚’ä½¿ã†ã¨æŠœã‘ã‚‹ã¨ãã«disposeãƒ¡ã‚½ãƒƒãƒ‰ã‚’æŒã£ã¦ã„ã‚Œã°ã€dispose(ç ´æ£„)ã‚’ã—ã¦ãã‚Œã¾ã™ã€‚)
                 using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
-                    // SQLƒRƒ}ƒ“ƒhÀs
+                    // SQLã‚³ãƒãƒ³ãƒ‰å®Ÿè¡Œ
                     string queryString = "SELECT * FROM user";
                     SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
                     sqlCommand.Connection.Open();
 
-                    // ƒf[ƒ^æ“¾
+                    // ãƒ‡ãƒ¼ã‚¿å–å¾—
                     SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
 
-                    // ƒf[ƒ^‚ğƒ‹[ƒv
+                    // ãƒ‡ãƒ¼ã‚¿ã‚’ãƒ«ãƒ¼ãƒ—
                     while (sqlDataReader.Read() == true)
                     {
-                        // C#‚Å‚Í‹ó‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Å’l‚ªİ’è‚Å‚«‚é(Java‚Å‚Í‚Å‚«‚È‚©‚Á‚½‚Í‚¸)
+                        // C#ã§ã¯ç©ºã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã§å€¤ãŒè¨­å®šã§ãã‚‹(Javaã§ã¯ã§ããªã‹ã£ãŸã¯ãš)
                         UserModel userModel = new UserModel()
                         {
                             Id = sqlDataReader.IsDBNull(0) ? 0 : sqlDataReader.GetInt32(0),
@@ -59,23 +61,24 @@ namespace WinFormsApp
                             Age = sqlDataReader.IsDBNull(0) ? null : sqlDataReader.GetInt32(2),
                         };
 
-                        // List‚É’Ç‰Á‚·‚é
+                        // Listã«è¿½åŠ ã™ã‚‹
                         userModels.Add(userModel);
                     }
 
-                    // sqlDataReader‚Ì‚İclose
+                    // sqlDataReaderã®ã¿close
                     sqlDataReader.Close();
                 }
 
-                // using‚ªI‚í‚é‚ÆsqlConnection‚ªDispose(”jŠü)‚³‚ê‚é‚Ì‚Åclose•s—v‚Æv‚í‚ê‚é
+                // usingãŒçµ‚ã‚ã‚‹ã¨sqlConnectionãŒDispose(ç ´æ£„)ã•ã‚Œã‚‹ã®ã§closeä¸è¦ã¨æ€ã‚ã‚Œã‚‹
             }
             catch
             (Exception ex)
             {
+                // é©å½“ãªä¾‹å¤–ã‚’å–å¾—ã—ã¦ã¾ã™ã€‚UpdateConcurrencyExceptionã¨ã‹ã‚ã‚Šã¾ã™ã€‚
                 Console.WriteLine(ex.ToString());
             }
 
-            // ‚±‚±‚ÅuserModels‚ğDataGridView‚É’Ç‰Á‚·‚éˆ—‚ğ‘‚­
+            // ã“ã“ã§userModelsã‚’DataGridViewã«è¿½åŠ ã™ã‚‹å‡¦ç†ã‚’æ›¸ã
 
 
 
