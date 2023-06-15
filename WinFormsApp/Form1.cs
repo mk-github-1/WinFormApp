@@ -69,7 +69,7 @@ namespace WinFormsApp
                     sqlDataReader.Close();
                 }
 
-                // usingが終わるとsqlConnectionがDispose(破棄)されるのでclose不要と思われる
+                // usingが終わるとsqlConnectionがDispose(破棄)されるのでclose不要
             }
             catch (Exception ex)
             {
