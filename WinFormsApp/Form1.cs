@@ -43,7 +43,7 @@ namespace WinFormsApp
                 using (SqlConnection sqlConnection = new SqlConnection(connectionString))
                 {
                     // SQLコマンド実行
-                    string queryString = "SELECT * FROM user";
+                    string queryString = "SELECT id, name, age FROM user";
                     SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
                     sqlCommand.Connection.Open();
 
