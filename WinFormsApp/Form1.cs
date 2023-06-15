@@ -57,8 +57,8 @@ namespace WinFormsApp
                         UserModel userModel = new UserModel()
                         {
                             Id = sqlDataReader.IsDBNull(0) ? 0 : sqlDataReader.GetInt32(0),
-                            Name = sqlDataReader.IsDBNull(0) ? string.Empty : sqlDataReader.GetString(1),
-                            Age = sqlDataReader.IsDBNull(0) ? null : sqlDataReader.GetInt32(2),
+                            Name = sqlDataReader.IsDBNull(1) ? string.Empty : sqlDataReader.GetString(1),
+                            Age = sqlDataReader.IsDBNull(2) ? null : sqlDataReader.GetInt32(2),
                         };
 
                         // Listに追加する
