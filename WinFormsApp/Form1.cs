@@ -12,20 +12,17 @@ namespace WinFormsApp
     {
         // 例題なのでベタ書きですが、ここはRepositoryに分けれると思います。
         private readonly IConfiguration _configuration;
-        private readonly string connectionString;
+        private readonly string _connectionString;
 
         public Form1()
         {
             // 例題なのでベタ書きですが、ここはRepositoryに分けれると思います。
-            // public IList<UserModel> FindAll() { return リスト; } みたいたイメージです。
-            
             // appsettings.jsonのデータベース接続接続文字列を取得
             var builder = new ConfigurationBuilder()
                 .SetBasePath(System.IO.Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             this._configuration = builder.Build();
-
-            this.connectionString = this._configuration["ConnectionStrings:DefaultConnection"]
+            this._connectionString = this._configuration["ConnectionStrings:DefaultConnection"]
             
             // Formの初期化(移動しない)
             InitializeComponent();
@@ -40,9 +37,10 @@ namespace WinFormsApp
             try
             {
                 // 例題なのでベタ書きですが、tryの中はRepositoryに分けれると思います。
-            
+                // public IList<UserModel> FindAll() { return リスト; } みたいたイメージです。
+                
                 // データベース接続(usingを使うと抜けるときにdisposeメソッドを持っていれば、dispose(破棄)をしてくれます。)
-                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+                using (SqlConnection sqlConnection = new SqlConnection(this._connectionString))
                 {
                     // SQLコマンド実行
                     string queryString = "SELECT id, name, age FROM user";
