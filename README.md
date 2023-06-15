@@ -13,6 +13,7 @@
 Dao → Repository  
 Form → ViewModel  
 ※DB操作はRepositoryが一般的。  
-デスクトップアプリにはFormという考えはないし、WebでもFormという名前は使われなくなってきている。
+デスクトップアプリにはFormという考えはないし、WebでもFormで送信するかはわからない。
+フロント(画面表示用のModel) =  ViewModel
 
 .gitignoteで除外設定ができてないので、パッケージとかビルド関係のデータを含んでしまってるかも。
