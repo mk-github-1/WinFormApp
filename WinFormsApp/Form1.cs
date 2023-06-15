@@ -37,7 +37,7 @@ namespace WinFormsApp
             try
             {
                 // 例題なのでベタ書きですが、tryの中はRepositoryに分けれると思います。
-                // public IList<UserModel> FindAll() { return リスト; } みたいたイメージです。
+                // public IList<UserModel> FindAll() { return リスト; } みたいなイメージです。
                 
                 // データベース接続(usingを使うと抜けるときにdisposeメソッドを持っていれば、dispose(破棄)をしてくれます。)
                 using (SqlConnection sqlConnection = new SqlConnection(this._connectionString))
