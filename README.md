@@ -10,7 +10,9 @@
 
 ・以下のクラスは名前変更したほうがいいかも。
 
-Dao→Repository  
-Form→ViewModel  
+Dao → Repository  
+Form → ViewModel  
+※DB操作はRepositoryが一般的。  
+デスクトップアプリにはFormという考えはないし、WebでもFormという名前は使われなくなってきている。
 
 .gitignoteで除外設定ができてないので、パッケージとかビルド関係のデータを含んでしまってるかも。
