@@ -9,7 +9,8 @@
 フォルダ構成は自習用にはこんな感じがいいかなという参考例です。SpringBootの地震でやっていたのに合わせちゃっていいかも。
 
 ・以下のクラスは名前変更したほうがいいかも。
-Dao→Repository
-Form→ViewModel
+
+Dao→Repository  
+Form→ViewModel  
 
 .gitignoteで除外設定ができてないので、パッケージとかビルド関係のデータを含んでしまってるかも。
