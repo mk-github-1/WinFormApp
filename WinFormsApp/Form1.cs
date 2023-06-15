@@ -17,7 +17,7 @@ namespace WinFormsApp
         public Form1()
         {
             // 例題なのでベタ書きですが、ここはRepositoryに分けれると思います。
-            // appsettings.jsonのデータベース接続接続文字列を取得
+            // appsettings.jsonのデータベース接続文字列を取得
             var builder = new ConfigurationBuilder()
                 .SetBasePath(System.IO.Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
