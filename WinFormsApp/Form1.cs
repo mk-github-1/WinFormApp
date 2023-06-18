@@ -1,84 +1,46 @@
-using System.Data.SqlClient;
-
-// このパッケージが必要
-// Microsoft.Extensions.Configuration
-// Microsoft.Extensions.Configuration.Json
-using Microsoft.Extensions.Configuration;
 using WinFormsApp.Model;
+using WinFormsApp.Services;
 
 namespace WinFormsApp
 {
+    // FormはSpringBootでいうとController、画面、javascriptがくっついているような役割
     public partial class Form1 : Form
     {
-        // 例題なのでベタ書きですが、ここはRepositoryとかDaoに分けれると思います。
-        private readonly IConfiguration _configuration;
-        private readonly string connectionString;
+        // DIを使用するためには
+        // privateフィールド、コンストラクタ引数、コンストラクタ内での初期化は必須です。
+        private readonly IUserService _userService;
 
-        public Form1()
+        // SpringBootのコンストラクタに@Autowiredをつけて使用するのと同じです。
+        public Form1(IUserService userService)
         {
-            // 例題なのでベタ書きですが、ここはRepositoryとかDaoに分けれると思います。
-
-            // appsettings.jsonのデータベース接続接続文字列を取得
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(System.IO.Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-            this._configuration = builder.Build();
-
-            this.connectionString = this._configuration["ConnectionStrings:DefaultConnection"];
+            this._userService = userService;
 
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {   
-            IList<UserModel> userModels = new List<UserModel>();
-
-            // データ数が少ないので一旦Listに詰める形にしてます。
-            // 例題なのでベタ書きですが、tryの中はRepositoryとかDaoに分けれると思います。
             try
             {
-                // データベース接続
-                using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+                // Service -> Repositoryからデータ取得
+                IList<UserModel> userModels = this._userService.FindAll().ToList();
+
+                // ここでuserModelsをDataGridViewに追加する処理を書く
+
+                // デバッグ用確認
+                foreach (UserModel userModel in userModels)
                 {
-                    // SQLコマンド実行
-                    string queryString = "SELECT * FROM user";
-                    SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
-                    sqlCommand.Connection.Open();
-
-                    // データ取得
-                    SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-
-                    // データをループ
-                    while (sqlDataReader.Read() == true)
-                    {
-                        // C#では空のコンストラクタで値が設定できる(Javaではできなかったはず)
-                        UserModel userModel = new UserModel()
-                        {
-                            Id = sqlDataReader.IsDBNull(0) ? 0 : sqlDataReader.GetInt32(0),
-                            Name = sqlDataReader.IsDBNull(0) ? string.Empty : sqlDataReader.GetString(1),
-                            Age = sqlDataReader.IsDBNull(0) ? null : sqlDataReader.GetInt32(2),
-                        };
-
-                        // Listに追加する
-                        userModels.Add(userModel);
-                    }
-
-                    // sqlDataReaderのみclose
-                    sqlDataReader.Close();
+                    Console.WriteLine(userModel.Id);
+                    Console.WriteLine(userModel.Name);
+                    Console.WriteLine(userModel.Age);
                 }
 
-                // usingが終わるとsqlConnectionがDispose(破棄)されるのでclose不要と思われる
+                Console.WriteLine("ok");
             }
-            catch
-            (Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
-
-            // ここでuserModelsをDataGridViewに追加する処理を書く
-
-
-
         }
     }
 }
