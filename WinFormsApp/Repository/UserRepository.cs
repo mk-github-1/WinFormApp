@@ -21,7 +21,7 @@ namespace WinFormsApp.Repository
         {
             List<UserModel> userModels = new List<UserModel>();
 
-            // データベース接続
+            // データベース接続(postgresqlを使用するように修正が必要)
             using (SqlConnection sqlConnection = new SqlConnection(this._connectionString))
             {
                 // SQLコマンド実行し、データ取得

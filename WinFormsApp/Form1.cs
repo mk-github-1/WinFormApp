@@ -1,5 +1,3 @@
-using System.Data.SqlClient;
-
 using WinFormsApp.Model;
 using WinFormsApp.Services;
 

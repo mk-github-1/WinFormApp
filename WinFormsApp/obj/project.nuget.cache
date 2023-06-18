@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "w8nJWml32JvvgTLgmX56KL09T5k4cGdS3XcQ9jXVwTf6q9Lvvs/peCvux1HXNjshtPdaaraio+HoNBckCkcYLg==",
+  "dgSpecHash": "xAAZBtQ92+hKfrubaiohsVlbEXVNakUMza7cEkHlMiHhKbjTYF1fSz3yBQlOAwhyCyJhUWc4tKqVJ1w16GMmCQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\user\\source\\repos\\WinFormApp\\WinFormsApp\\WinFormsApp.csproj",
   "expectedPackageFiles": [
@@ -17,6 +17,7 @@
     "C:\\Users\\user\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\npgsql\\6.0.9\\npgsql.6.0.9.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.7.0\\runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
