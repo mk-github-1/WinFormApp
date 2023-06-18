@@ -10,11 +10,11 @@ namespace WinFormsApp.Repository
 {
     public class UserRepository : IUserRepository
     {
-        private readonly string _connectionString;
+        private readonly NpgsqlConnection _npgsqlConnection;
 
-        public UserRepository(IConfiguration configuration)
+        public UserRepository(NpgsqlConnection npgsqlConnection)
         {
-            this._connectionString = configuration["ConnectionStrings:DefaultConnection"];
+            this._npgsqlConnection = npgsqlConnection;
         }
 
         public IEnumerable<UserModel> FindAll()
