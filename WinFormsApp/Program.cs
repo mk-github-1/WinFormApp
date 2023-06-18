@@ -3,7 +3,6 @@
 // Microsoft.Extensions.Configuration
 using Autofac;
 using Microsoft.Extensions.Configuration;
-// using Microsoft.Extensions.Configuration.Json;
 
 using WinFormsApp.Repository;
 using WinFormsApp.Services;
