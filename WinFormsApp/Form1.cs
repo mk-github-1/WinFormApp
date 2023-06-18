@@ -1,3 +1,5 @@
+using System.Data.SqlClient;
+
 using WinFormsApp.Model;
 using WinFormsApp.Services;
 
@@ -39,6 +41,7 @@ namespace WinFormsApp
             }
             catch (Exception ex)
             {
+                // 適当な例外を取得してます。UpdateConcurrencyExceptionとかあります、E
                 Console.WriteLine(ex.ToString());
             }
         }
