@@ -17,12 +17,26 @@ namespace WinFormsApp.Services
 
         public IEnumerable<UserModel> FindAll()
         {
-            return this._userRepository.FindAll();
+            try
+            {
+                return this._userRepository.FindAll();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public UserModel? FindById(int id)
         {
-            return this._userRepository.FindById(id);
+            try
+            {
+                return this._userRepository.FindById(id);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public void Create(UserModel userModel)

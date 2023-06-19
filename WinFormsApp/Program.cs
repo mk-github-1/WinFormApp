@@ -44,12 +44,13 @@ namespace WinFormsApp
             ContainerBuilder containerBuilder = new ContainerBuilder();
 
             // NpgsqlConnectionをDIで使用するための登録
+            string connectionString = configuration.GetSection("ConnectionStrings")["DefaultConnection"];
+
             containerBuilder.Register(c =>
             {
-                string connectionString = configuration.GetConnectionString("PostgreSQLConnection");
                 return new NpgsqlConnection(connectionString);
             }).As<NpgsqlConnection>().InstancePerLifetimeScope();
-            
+
             //  ここでIUserServiceやIUserRepositoryの実装クラス(UserService, UserRepository)との関連付けを行う
             containerBuilder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
             
