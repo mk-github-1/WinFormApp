@@ -125,6 +125,7 @@ namespace WinFormsApp.Repository
             {
                 this._npgsqlConnection.Close();
             }
+            
             this._npgsqlConnection.Dispose();
         }
     }
