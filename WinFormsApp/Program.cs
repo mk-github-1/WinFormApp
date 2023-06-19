@@ -1,4 +1,4 @@
-// ‚±‚ÌƒpƒbƒP[ƒW‚ª•K—v
+// ã“ã®ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ãŒå¿…è¦
 // Autofac
 // Microsoft.Extensions.Configuration
 // Npgsql
@@ -19,51 +19,51 @@ namespace WinFormsApp
         [STAThread]
         static void Main()
         {
-            // \¬î•ñ‚Ì“Ç‚İ‚İ
+            // æ§‹æˆæƒ…å ±ã®èª­ã¿è¾¼ã¿
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                 .AddJsonFile("appsettings.json")
                 .Build();
            
-            // Autofac‚ÌDIƒRƒ“ƒeƒi‚ğ€”õ
+            // Autofacã®DIã‚³ãƒ³ãƒ†ãƒŠã‚’æº–å‚™
             IContainer container = ConfigureContainer(configuration);
 
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             
-            // Autofac‚ÌDIƒRƒ“ƒeƒi‚ğg—p‚·‚é‚æ‚¤‚É•ÏX
+            // Autofacã®DIã‚³ãƒ³ãƒ†ãƒŠã‚’ä½¿ç”¨ã™ã‚‹ã‚ˆã†ã«å¤‰æ›´
             // Application.Run(new Form1());
             Application.Run(container.Resolve<Form1>());
         }
 
-        // Autofac‚ÌDIƒRƒ“ƒeƒi‚Ìİ’è
+        // Autofacã®DIã‚³ãƒ³ãƒ†ãƒŠã®è¨­å®š
         private static IContainer ConfigureContainer(IConfiguration configuration)
         {
-            // ContainerBuilder‚ğ€”õ
+            // ContainerBuilderã‚’æº–å‚™
             ContainerBuilder containerBuilder = new ContainerBuilder();
 
-            // NpgsqlConnection‚ğDI‚Åg—p‚·‚é‚½‚ß‚Ì“o˜^
+            // NpgsqlConnectionã‚’DIã®ç™»éŒ²
             containerBuilder.Register(c =>
             {
-                string connectionString = configuration.GetConnectionString("PostgreSQLConnection");
+                string connectionString = configuration.GetConnectionString("DefaultConnection");
                 return new NpgsqlConnection(connectionString);
             }).As<NpgsqlConnection>().InstancePerLifetimeScope();
             
-            //  ‚±‚±‚ÅIUserService‚âIUserRepository‚ÌÀ‘•ƒNƒ‰ƒX(UserService, UserRepository)‚Æ‚ÌŠÖ˜A•t‚¯‚ğs‚¤
+            // ã“ã“ã§DIã‚³ãƒ³ãƒ†ãƒŠã«ã€Configurationã®ã‚¤ãƒ³ã‚¿ãƒ•ã‚§ãƒ¼ã‚¹ã¨å®Ÿè£…ã‚¯ãƒ©ã‚¹ã‚’ç™»éŒ²ã™ã‚‹
+            containerBuilder.RegisterInstance(configuration).As<IConfiguration>();
+            
+            // ã“ã“ã§DIã‚³ãƒ³ãƒ†ãƒŠã«ã€IUserServiceã‚„IUserRepositoryã®ã‚¤ãƒ³ã‚¿ãƒ•ã‚§ãƒ¼ã‚¹ã¨å®Ÿè£…ã‚¯ãƒ©ã‚¹ã‚’ç™»éŒ²ã™ã‚‹
             containerBuilder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
             
             containerBuilder.RegisterType<UserRepository>().As<IUserRepository>().InstancePerLifetimeScope();
 
-
-            // IConfiguration‚ğDI‚Åg—p‚·‚é‚½‚ß‚Ì“o˜^
-            containerBuilder.RegisterInstance(configuration).As<IConfiguration>();
-
-            // Form1©g‚àDIƒRƒ“ƒeƒi‚É“o˜^‚·‚é•K—v‚ª‚ ‚é
+            
+            // ã“ã“ã§DIã‚³ãƒ³ãƒ†ãƒŠã«ã€Formã®å®Ÿè£…ã‚¯ãƒ©ã‚¹ã‚’ç™»éŒ²ã™ã‚‹
             containerBuilder.RegisterType<Form1>();
 
 
-            // DIƒRƒ“ƒeƒi‚ğ\’z‚µ‚Ä•Ô‚·
+            // DIã‚³ãƒ³ãƒ†ãƒŠã‚’æ§‹ç¯‰ã—ã¦è¿”ã™
             return containerBuilder.Build();
         }
     }
