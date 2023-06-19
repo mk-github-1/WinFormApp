@@ -25,7 +25,7 @@ SpringBootの自習でやっていたのに合わせちゃってください。
 ・以下のクラスは名前変更したほうがいいかも。
 
 Dao → Repository  
-Form → ViewModel  や　Modelなど  
+Form → ViewModel や　Modelなど  
 
 ※DIについて、Microsoft純正のDIはFormアプリで使用できなかったので、メジャーなAutofacを使用しています。
 
