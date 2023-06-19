@@ -20,6 +20,7 @@ namespace WinFormsApp.Repository
             List<UserModel> userModels = new List<UserModel>();
 
             string queryString = "SELECT * FROM m_user";
+            
             NpgsqlCommand command = new NpgsqlCommand(queryString, this._npgsqlConnection);
 
             OpenConnection();
@@ -48,6 +49,7 @@ namespace WinFormsApp.Repository
             UserModel? userModel = null;
 
             string queryString = "SELECT * FROM m_user WHERE id = @Id";
+            
             NpgsqlCommand command = new NpgsqlCommand(queryString, this._npgsqlConnection);
             command.Parameters.AddWithValue("@Id", id);
 
