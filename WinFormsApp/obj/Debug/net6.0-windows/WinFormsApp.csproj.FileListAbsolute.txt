@@ -34,3 +34,4 @@ C:\Users\user\source\repos\WinFormApp\WinFormsApp\obj\Debug\net6.0-windows\WinFo
 C:\Users\user\source\repos\WinFormApp\WinFormsApp\obj\Debug\net6.0-windows\WinFormsApp.genruntimeconfig.cache
 C:\Users\user\source\repos\WinFormApp\WinFormsApp\obj\Debug\net6.0-windows\ref\WinFormsApp.dll
 C:\Users\user\source\repos\WinFormApp\WinFormsApp\bin\Debug\net6.0-windows\appsettings.json
+C:\Users\user\source\repos\WinFormApp\WinFormsApp\bin\Debug\net6.0-windows\Npgsql.dll

@@ -1,144 +1,129 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.VisualBasic.ApplicationServices;
+﻿using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using WinFormsApp.Model;
 
 namespace WinFormsApp.Repository
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository, IDisposable
     {
-        private readonly string _connectionString;
+        private readonly NpgsqlConnection _npgsqlConnection;
 
-        public UserRepository(IConfiguration configuration)
+        public UserRepository(NpgsqlConnection npgsqlConnection)
         {
-            this._connectionString = configuration["ConnectionStrings:DefaultConnection"];
+            this._npgsqlConnection = npgsqlConnection;
         }
 
         public IEnumerable<UserModel> FindAll()
         {
             List<UserModel> userModels = new List<UserModel>();
 
-            // データベース接続(postgresqlを使用するように修正が必要)
-            using (SqlConnection sqlConnection = new SqlConnection(this._connectionString))
-            {
-                // SQLコマンド実行し、データ取得
-                string queryString = "SELECT * FROM user";
-                SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
-                sqlCommand.Connection.Open();
-                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+            string queryString = "SELECT * FROM Users";
+            NpgsqlCommand command = new NpgsqlCommand(queryString, this._npgsqlConnection);
 
-                // データをループ
-                while (sqlDataReader.Read() == true)
+            OpenConnection();
+
+            using (NpgsqlDataReader npgsqlDataReader = command.ExecuteReader())
+            {
+                while (npgsqlDataReader.Read())
                 {
-                    // C#では空のコンストラクタで値が設定できる(Javaではできなかったはず)
-                    UserModel userModel = new UserModel()
+                    UserModel userModel = new UserModel
                     {
-                        Id = sqlDataReader.IsDBNull(0) ? 0 : sqlDataReader.GetInt32(0),
-                        Name = sqlDataReader.IsDBNull(0) ? string.Empty : sqlDataReader.GetString(1),
-                        Age = sqlDataReader.IsDBNull(0) ? null : sqlDataReader.GetInt32(2),
+                        Id = npgsqlDataReader.GetInt32(0),
+                        Name = npgsqlDataReader.GetString(1),
+                        Age = npgsqlDataReader.IsDBNull(2) ? null : (int?)npgsqlDataReader.GetInt32(2)
                     };
 
-                    // Listに追加する
                     userModels.Add(userModel);
                 }
-
-                // sqlDataReaderのみclose
-                sqlDataReader.Close();
             }
-
-            // usingが終わるとsqlConnectionがDispose(破棄)されるのでclose不要
 
             return userModels;
         }
 
         public UserModel? FindById(int id)
         {
-            // データベース接続
-            using (SqlConnection sqlConnection = new SqlConnection(this._connectionString))
+            UserModel? userModel = null;
+
+            string queryString = "SELECT * FROM Users WHERE Id = @Id";
+            NpgsqlCommand command = new NpgsqlCommand(queryString, this._npgsqlConnection);
+            command.Parameters.AddWithValue("@Id", id);
+
+            OpenConnection();
+
+            using (NpgsqlDataReader npgsqlDataReader = command.ExecuteReader())
             {
-                // SQLコマンド実行し、データ取得
-                string queryString = "SELECT * FROM Users WHERE Id = @Id";
-                SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
-                sqlCommand.Parameters.AddWithValue("@Id", id);
-                sqlConnection.Open();
-
-                using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
+                if (npgsqlDataReader.Read())
                 {
-                    if (sqlDataReader.Read())
+                    userModel = new UserModel
                     {
-                        UserModel userModel = new UserModel
-                        {
-                            Id = sqlDataReader.IsDBNull(0) ? 0 : sqlDataReader.GetInt32(0),
-                            Name = sqlDataReader.IsDBNull(0) ? string.Empty : sqlDataReader.GetString(1),
-                            Age = sqlDataReader.IsDBNull(0) ? null : sqlDataReader.GetInt32(2),
-                        };
-
-                        // sqlDataReaderのみclose
-                        sqlDataReader.Close();
-
-                        return userModel;
-                    }
+                        Id = npgsqlDataReader.GetInt32(0),
+                        Name = npgsqlDataReader.GetString(1),
+                        Age = npgsqlDataReader.IsDBNull(2) ? null : (int?)npgsqlDataReader.GetInt32(2)
+                    };
                 }
             }
 
-            return null;
+            return userModel;
         }
 
         public void Create(UserModel userModel)
         {
-            // データベース接続
-            using (SqlConnection sqlConnection = new SqlConnection(this._connectionString))
-            {
-                string queryString = "INSERT INTO Users (name, age) VALUES (@name, @age)";
-                SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
-                
-                sqlCommand.Parameters.AddWithValue("@name", userModel.Name);
-                sqlCommand.Parameters.AddWithValue("@age", userModel.Age);
+            string queryString = "INSERT INTO Users (name, age) VALUES (@name, @age)";
+            NpgsqlCommand command = new NpgsqlCommand(queryString, this._npgsqlConnection);
 
-                sqlConnection.Open();
-                sqlCommand.ExecuteNonQuery();
-            }
+            command.Parameters.AddWithValue("@name", userModel.Name);
+            command.Parameters.Add("@Age", NpgsqlTypes.NpgsqlDbType.Integer).Value = (userModel.Age != null ? userModel.Age : DBNull.Value);
+
+            OpenConnection();
+
+            command.ExecuteNonQuery();
         }
 
         public void Update(UserModel userModel)
         {
-            // データベース接続
-            using (SqlConnection sqlConnection = new SqlConnection(this._connectionString))
-            {
-                string queryString = "UPDATE Users "
-                    + " SET name = @Name "
-                    + " age = @Age "
-                    + " WHERE Id = @Id";
-                SqlCommand command = new SqlCommand(queryString, sqlConnection);
-                
-                command.Parameters.AddWithValue("@Id", userModel.Id);
-                command.Parameters.AddWithValue("@Name", userModel.Name);
-                command.Parameters.AddWithValue("@Age", userModel.Age);
+            string queryString = "UPDATE Users "
+                + " SET name = @Name, age = @Age "
+                + " WHERE Id = @Id";
 
-                sqlConnection.Open();
-                command.ExecuteNonQuery();
+            NpgsqlCommand command = new NpgsqlCommand(queryString, this._npgsqlConnection);
 
-            }
+            command.Parameters.AddWithValue("@Name", userModel.Name);
+            command.Parameters.Add("@Age", NpgsqlTypes.NpgsqlDbType.Integer).Value = (userModel.Age != null ? userModel.Age : DBNull.Value);
+
+            OpenConnection();
+
+            command.ExecuteNonQuery();
         }
 
         public void Delete(int id)
         {
-            // データベース接続
-            using (SqlConnection sqlConnection = new SqlConnection(this._connectionString))
+            string queryString = "DELETE FROM Users WHERE Id = @Id";
+            NpgsqlCommand command = new NpgsqlCommand(queryString, this._npgsqlConnection);
+
+            command.Parameters.AddWithValue("@Id", id);
+
+            OpenConnection();
+
+            command.ExecuteNonQuery();
+        }
+
+        private void OpenConnection()
+        {
+            if (this._npgsqlConnection.State != ConnectionState.Open)
             {
-                string queryString = "DELETE FROM Users WHERE Id = @Id";
-
-                SqlCommand sqlCommand = new SqlCommand(queryString, sqlConnection);
-
-                sqlCommand.Parameters.AddWithValue("@Id", id);
-
-                sqlConnection.Open();
-                sqlCommand.ExecuteNonQuery();
-
+                this._npgsqlConnection.Open();
             }
+        }
+
+        public void Dispose()
+        {
+            if (this._npgsqlConnection.State != ConnectionState.Closed)
+            {
+                this._npgsqlConnection.Close();
+            }
+            this._npgsqlConnection.Dispose();
         }
     }
 }
