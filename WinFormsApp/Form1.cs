@@ -25,17 +25,10 @@ namespace WinFormsApp
                 // Service -> Repositoryからデータ取得
                 IList<UserModel> userModels = this._userService.FindAll().ToList();
 
-                // ここでuserModelsをDataGridViewに追加する処理を書く
+                // DataGridにバインド
+                dataGridView1.DataSource = userModels;
 
-                // デバッグ用確認
-                foreach (UserModel userModel in userModels)
-                {
-                    Console.WriteLine(userModel.Id);
-                    Console.WriteLine(userModel.Name);
-                    Console.WriteLine(userModel.Age);
-                }
-
-                Console.WriteLine("ok");
+                // Console.WriteLine("ok");
             }
             catch (Exception ex)
             {
