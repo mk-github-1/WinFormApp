@@ -51,7 +51,7 @@ namespace WinFormsApp
                 return new NpgsqlConnection(connectionString);
             }).As<NpgsqlConnection>().InstancePerLifetimeScope();
 
-            //  ここでIUserServiceやIUserRepositoryの実装クラス(UserService, UserRepository)との関連付けを行う
+            // ここでUserServiceやUserRepositorをDIに登録し、IUserService, IUserRepositoryとの関連付けを行う
             containerBuilder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
             
             containerBuilder.RegisterType<UserRepository>().As<IUserRepository>().InstancePerLifetimeScope();
