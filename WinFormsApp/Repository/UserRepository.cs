@@ -34,7 +34,6 @@ namespace WinFormsApp.Repository
                         Id = npgsqlDataReader.GetInt32(0),
                         Name = npgsqlDataReader.GetString(1),
                         Age = npgsqlDataReader.IsDBNull(2) ? null : (int?)npgsqlDataReader.GetInt32(2)
-
                     };
 
                     userModels.Add(userModel);
