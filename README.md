@@ -6,15 +6,16 @@
 
 ・appsettings.json: 設定ファイル。
 
-・Program.cs: プログラムの最初の起動ファイル。その他、DB接続や、DIの設定も行なっています。  
+・Program.cs: プログラムの最初の起動ファイル。その他、DB接続や、DIの設定もあります。  
 
-SpringBootの@Controller、@Service、@Repositoryで行っていたことはできないので、このファイルで設定が必要です。
+SpringBootの@Controller、@Service、@Repositoryのようにアノテーションで行っていたことはできないので、このファイルで設定の追加が必要です。
 
 ・ Form1、IUserService、UserService、IUserRepository、UserRepository  
+基本的なサンプルを載せてます。DBアクセスし、DataGridViewに表示するとこまでしています。  
 
-DIとして使用したいものは、例のコードのようにコンストラクタインジェクションを使用してください。  
+DataGridViewの事前の列設定は未、例外処理は入れてあるだけで、画面に適切なメッセージの表示はしていません。
 
-SpringBootのクラスのコンストラクタに@Autowiredを付けて利用するのと同じイメージです。  
+DIとして使用したいものは、例のコードのようにコンストラクタインジェクションを使用してください。SpringBootのクラスのコンストラクタに@Autowiredを付けて利用するのと同じイメージです。  
 
 ※Microsoft純正のDIはFormアプリで使用できなかったので、メジャーなAutofacを使用しています。
 
