@@ -17,8 +17,6 @@ DataGridViewの事前の列設定は未、例外処理は入れてあるだけ�
 
 DIとして使用したいものは、例のコードのようにコンストラクタインジェクションを使用してください。SpringBootのクラスのコンストラクタに@Autowiredを付けて利用するのと同じイメージです。  
 
-※Microsoft純正のDIはFormアプリで使用できなかったので、メジャーなAutofacを使用しています。
-
 ・フォルダ構成は自習用にはこんな感じがいいかなという参考例です。  
 
 SpringBootの自習でやっていたのに合わせちゃってください。
@@ -27,7 +25,9 @@ SpringBootの自習でやっていたのに合わせちゃってください。
 ・以下のクラスは名前変更したほうがいいかも。
 
 Dao → Repository  
-Form → ViewModel  や　Modelなど
+Form → ViewModel  や　Modelなど  
+
+※DIについて、Microsoft純正のDIはFormアプリで使用できなかったので、メジャーなAutofacを使用しています。
 
 
 
