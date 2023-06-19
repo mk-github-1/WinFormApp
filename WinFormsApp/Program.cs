@@ -19,7 +19,7 @@ namespace WinFormsApp
         [STAThread]
         static void Main()
         {
-            // 構成情報の読み込み
+            // Configurationの読み込み
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
                 .AddJsonFile("appsettings.json")
@@ -32,7 +32,7 @@ namespace WinFormsApp
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             
-            // AutofacのDIコンテナを使用するように変更
+            // 最初に起動するFormはAutofacのDIコンテナを使用するように変更
             // Application.Run(new Form1());
             Application.Run(container.Resolve<Form1>());
         }
