@@ -76,7 +76,6 @@ namespace WinFormsApp.Repository
             string queryString = "INSERT INTO m_user (name, age) VALUES (@name, @age)";
 
             NpgsqlCommand command = new NpgsqlCommand(queryString, this._npgsqlConnection);
-
             command.Parameters.AddWithValue("@name", userModel.Name);
             command.Parameters.Add("@Age", NpgsqlTypes.NpgsqlDbType.Integer).Value = (userModel.Age != null ? userModel.Age : DBNull.Value);
 
@@ -92,7 +91,6 @@ namespace WinFormsApp.Repository
                 + " WHERE id = @Id";
 
             NpgsqlCommand command = new NpgsqlCommand(queryString, this._npgsqlConnection);
-
             command.Parameters.AddWithValue("@Name", userModel.Name);
             command.Parameters.Add("@Age", NpgsqlTypes.NpgsqlDbType.Integer).Value = (userModel.Age != null ? userModel.Age : DBNull.Value);
 
@@ -106,7 +104,6 @@ namespace WinFormsApp.Repository
             string queryString = "DELETE FROM m_user WHERE id = @Id";
 
             NpgsqlCommand command = new NpgsqlCommand(queryString, this._npgsqlConnection);
-
             command.Parameters.AddWithValue("@Id", id);
 
             OpenConnection();
