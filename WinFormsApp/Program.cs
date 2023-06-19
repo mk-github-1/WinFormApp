@@ -43,7 +43,7 @@ namespace WinFormsApp
             // ContainerBuilderを準備
             ContainerBuilder containerBuilder = new ContainerBuilder();
 
-            // NpgsqlConnectionをDIの登録
+            // NpgsqlConnectionを登録
             containerBuilder.Register(c =>
             {
                 string connectionString = configuration.GetConnectionString("DefaultConnection");
