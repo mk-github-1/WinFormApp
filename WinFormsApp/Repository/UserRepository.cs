@@ -89,9 +89,8 @@ namespace WinFormsApp.Repository
                 + " SET name = @Name, age = @Age "
                 + " WHERE id = @Id";
 
-            NpgsqlCommand command = new NpgsqlCommand(queryString, this._npgsqlConnection);
-            npgsqlConnection);
-            command.Parameters.AddWithValue("@Id", UserModel.Id);
+            NpgsqlCommand command = new NpgsqlCommand(queryString, this._npgsqlConnection);            
+            command.Parameters.AddWithValue("@Id", userModel.Id);
             command.Parameters.AddWithValue("@Name", userModel.Name);
             command.Parameters.Add("@Age", NpgsqlTypes.NpgsqlDbType.Integer).Value = (userModel.Age != null ? userModel.Age : DBNull.Value);
 
