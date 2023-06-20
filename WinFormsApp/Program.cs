@@ -43,6 +43,9 @@ namespace WinFormsApp
             // ContainerBuilderを準備
             ContainerBuilder containerBuilder = new ContainerBuilder();
 
+            // IConfigurationをDIで使用するための登録
+            containerBuilder.RegisterInstance(configuration).As<IConfiguration>();
+            
             // NpgsqlConnectionをDIで使用するための登録
             string connectionString = configuration.GetSection("ConnectionStrings")["DefaultConnection"];
 
@@ -56,10 +59,7 @@ namespace WinFormsApp
             
             containerBuilder.RegisterType<UserRepository>().As<IUserRepository>().InstancePerLifetimeScope();
 
-
-            // IConfigurationをDIで使用するための登録
-            containerBuilder.RegisterInstance(configuration).As<IConfiguration>();
-
+            
             // Form自身もDIコンテナに登録する必要がある(実装クラスのみ)
             containerBuilder.RegisterType<Form1>();
 
