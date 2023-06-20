@@ -1,3 +1,5 @@
 # ignore
-/obj
-/bin
+.vs/
+.git
+obj/
+bin/
