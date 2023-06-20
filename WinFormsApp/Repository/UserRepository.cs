@@ -20,6 +20,7 @@ namespace WinFormsApp.Repository
             List<UserModel> userModels = new List<UserModel>();
 
             string queryString = "SELECT * FROM m_user";
+            
             NpgsqlCommand command = new NpgsqlCommand(queryString, this._npgsqlConnection);
 
             OpenConnection();
@@ -33,7 +34,6 @@ namespace WinFormsApp.Repository
                         Id = npgsqlDataReader.GetInt32(0),
                         Name = npgsqlDataReader.GetString(1),
                         Age = npgsqlDataReader.IsDBNull(2) ? null : (int?)npgsqlDataReader.GetInt32(2)
-
                     };
 
                     userModels.Add(userModel);
@@ -48,6 +48,7 @@ namespace WinFormsApp.Repository
             UserModel? userModel = null;
 
             string queryString = "SELECT * FROM m_user WHERE id = @Id";
+            
             NpgsqlCommand command = new NpgsqlCommand(queryString, this._npgsqlConnection);
             command.Parameters.AddWithValue("@Id", id);
 
@@ -74,7 +75,6 @@ namespace WinFormsApp.Repository
             string queryString = "INSERT INTO m_user (name, age) VALUES (@name, @age)";
 
             NpgsqlCommand command = new NpgsqlCommand(queryString, this._npgsqlConnection);
-
             command.Parameters.AddWithValue("@name", userModel.Name);
             command.Parameters.Add("@Age", NpgsqlTypes.NpgsqlDbType.Integer).Value = (userModel.Age != null ? userModel.Age : DBNull.Value);
 
@@ -90,7 +90,8 @@ namespace WinFormsApp.Repository
                 + " WHERE id = @Id";
 
             NpgsqlCommand command = new NpgsqlCommand(queryString, this._npgsqlConnection);
-
+            npgsqlConnection);
+            command.Parameters.AddWithValue("@Id", UserModel.Id);
             command.Parameters.AddWithValue("@Name", userModel.Name);
             command.Parameters.Add("@Age", NpgsqlTypes.NpgsqlDbType.Integer).Value = (userModel.Age != null ? userModel.Age : DBNull.Value);
 
@@ -104,7 +105,6 @@ namespace WinFormsApp.Repository
             string queryString = "DELETE FROM m_user WHERE id = @Id";
 
             NpgsqlCommand command = new NpgsqlCommand(queryString, this._npgsqlConnection);
-
             command.Parameters.AddWithValue("@Id", id);
 
             OpenConnection();
@@ -126,6 +126,7 @@ namespace WinFormsApp.Repository
             {
                 this._npgsqlConnection.Close();
             }
+            
             this._npgsqlConnection.Dispose();
         }
     }

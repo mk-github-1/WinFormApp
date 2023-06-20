@@ -1,39 +1,34 @@
 # WinFormApp
 
-ここはpublicで一般公開しています。(情報の取り扱い注意)
-
-教育用のFormアプリのデータベース接続の簡単なサンプルです。
+教育用のFormアプリで、PostgreSQL接続とDI(Autofac)を利用できるようにした簡単なサンプルです。
 
 見るところ
 
-・appsettings.json: 設定ファイルです。データベース接続情報やその他のデータも記入できます。
+・appsettings.json: 設定ファイル。
 
-・Program.cs: 設定ファイルや、Autofacを利用したDIを使用できるようにしています。(Microsoft純正のDIはFormアプリでは使用できなかった)  
-              PostgreSQLもDIで使用できるようにしています。
-              
-              その他DIとして使用したいForm、Service、Repositoryを追加してください。(SpringBootの@Controller、@Service、@Repositoryのようなものです)  
+・Program.cs: プログラムの最初の起動ファイル。その他、DB接続や、DIの設定もあります。  
 
-・画面やService、Repository:  
-Form1  
-IUserService, UserService  
-IUserRepository, UserRepository  
+SpringBootの@Controller、@Service、@Repositoryのようにアノテーションで行っていたことはできないので、このファイルで設定の追加が必要です。
 
-DIとして使用したいものは、例のコードのようにコンストラクタインジェクションを使用してください。  
-SpringBootのクラスのコンストラクタに@Autowiredを付けるのと同じです。
+・ Form1、IUserService、UserService、IUserRepository、UserRepository  
+基本的なサンプルを載せてます。DBアクセスし、DataGridViewに表示するとこまでしています。  
 
-ServiceとRepositoryはインタフェースと実装クラスを紐づけています。(これはSpringBootでやってたのとは違うかも)  
+DataGridViewの事前の列設定は未、例外処理は入れてあるだけで、画面に適切なメッセージの表示はしていません。
 
+DIとして使用したいものは、例のコードのようにコンストラクタインジェクションを使用してください。SpringBootのクラスのコンストラクタに@Autowiredを付けて利用するのと同じイメージです。  
 
 ・フォルダ構成は自習用にはこんな感じがいいかなという参考例です。  
+
 SpringBootの自習でやっていたのに合わせちゃってください。
 
 
 ・以下のクラスは名前変更したほうがいいかも。
 
 Dao → Repository  
-Form → ViewModel  
-※DB操作はRepositoryが一般的。  
-Formより、フロントモデル(画面表示用のModel)ということで、ViewModelのほうがいいかな。
+Form → ViewModel や　Modelなど  
+
+※DIについて、Microsoft純正のDIはFormアプリで使用できなかったので、メジャーなAutofacを使用しています。
+
 
 
 
